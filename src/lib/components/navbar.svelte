@@ -3,9 +3,12 @@
 	import { quartOut } from 'svelte/easing';
 	import { page } from '$app/stores';
 	import { TIMING } from '$lib/constants';
+	import { urlFor } from '$lib/image-url'
+	import { siteData } from '$lib/store'
 
 	let isNavOpen = false;
 	let timing = TIMING;
+	let { title, logo } = $siteData
 
 	const toggleMenu = () => {
 		isNavOpen = !isNavOpen;
@@ -67,15 +70,13 @@
 				<!-- max-width: 98% is a hacky fix. SVG gets fuzzy at max-size. Probably should fix svg file itself -->
 				<img
 					class="block lg:hidden h-8 w-auto"
-					style="max-width: 98%;"
-					src="/logo-osc.svg"
-					alt="One Sleep Company logo"
+					src={urlFor(logo.asset).format('webp').width(200).url()}
+					alt={title + ' logo '}
 				/>
 				<img
 					class="hidden lg:block h-8 w-auto"
-					style="max-width: 98%;"
-					src="/logo-osc.svg"
-					alt="One Sleep Company logo"
+					src={urlFor(logo.asset).format('webp').width(200).url()}
+					alt={title + ' logo '}
 				/>
 			</a>
 			<div class="hidden md:ml-6 md:flex md:space-x-4">
