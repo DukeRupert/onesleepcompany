@@ -26,7 +26,7 @@
 	import ContentBlocks from '@arzidava/svelte-portable-text'
 	import ProductCard from '$lib/components/productCard.svelte';
 	import SimpleCTA from '$lib/components/simpleCTA.svelte';
-import Link from '$lib/components/link.svelte';
+	import Link from '$lib/components/link.svelte';
 
 	export const serializers = {
 		types: {
@@ -41,7 +41,7 @@ import Link from '$lib/components/link.svelte';
 					alt: node.mattress.title
 				},
 				price: node.mattress.price,
-				features: node.mattress.featuresauthor
+				features: node.mattress.features
 					}
 				}
 			},
@@ -60,7 +60,15 @@ import Link from '$lib/components/link.svelte';
 				}
 				}
 			}
-		}
+		},
+		marks: {
+			link: (props) => {
+				return {
+					component: Link,
+					props: props.mark
+				};
+			}
+		}	
 	}
 	
 
