@@ -128,7 +128,7 @@
 				'All of our mattresses come with a manufacture’s warranty. So you can rest easy knowing that you are taken care of if something is wrong with your mattress.',
 			cta: {
 				title: 'View Mattresses',
-				link: '/inventory?filter=mattresses'
+				link: '/inventory/mattresses'
 			}
 		}
 	];
