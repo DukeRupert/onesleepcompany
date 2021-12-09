@@ -1,3 +1,9 @@
+<script lang="ts">
+	import { urlFor } from '$lib/image-url';
+	import { siteData } from '$lib/store';
+	const { title, logo } = $siteData;
+</script>
+
 <div class="py-16 bg-white overflow-hidden">
 	<div class="max-w-8xl mx-auto px-4 space-y-8 sm:px-6 lg:px-8">
 		<div class="text-base max-w-prose mx-auto lg:max-w-none">
@@ -53,7 +59,7 @@
 					</div>
 					<div class="rounded-md shadow ml-4">
 						<a
-							href="/inventory?filter=mattresses"
+							href="/inventory/mattresses"
 							class="w-full flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-primary bg-white hover:bg-gray-50"
 						>
 							Find a Mattress
@@ -64,7 +70,11 @@
 			<div class="mt-12 relative text-base max-w-prose mx-auto lg:mt-0 lg:max-w-none">
 				<blockquote class="relative bg-white rounded-lg shadow-lg">
 					<div class="rounded-t-lg px-6 py-8 sm:px-10 sm:pt-10 sm:pb-8">
-						<img src="logo-osc.svg" alt="One Sleep Company logo" class="h-8" />
+						<img
+							src={urlFor(logo.asset).format('webp').width(200).url()}
+							alt={title + ' logo '}
+							class="h-8"
+						/>
 						<div class="relative text-lg text-gray-700 font-medium mt-8">
 							<svg
 								class="absolute top-0 left-0 transform -translate-x-3 -translate-y-2 h-8 w-8 text-gray-200"
