@@ -28,6 +28,8 @@
 	import type { feature } from '$lib/components/feature'
 	import Stats from '$lib/components/stats.svelte'
 	import type { stats } from '$lib/components/stats'
+	import Highlights from '$lib/components/highlights.svelte'
+	import type { highlight } from '$lib/components/highlights'
     export let data
     console.log(data)
 
@@ -102,6 +104,36 @@
 		]
 	};
 
+	let highlightData: highlight[] = [
+		{
+			title: 'Instant Approval Financing',
+			description:
+				'Instant approval financing available! Ask us about our ZERO CREDIT NEEDED financing and our 24 month same as cash financing. Same Day approvals.',
+			cta: {
+				title: 'Apply for Financing',
+				link: '/instant-financing'
+			}
+		},
+		{
+			title: 'Made in the Pacific Northwest',
+			description:
+				'All of our mattresses are manufactured here in the United States of America at our factory in the Pacific Northwest. Come visit our showroom to choose the mattress for you.',
+			cta: {
+				title: 'Find A Showroom',
+				link: '/locations'
+			}
+		},
+		{
+			title: 'Manufacturer Warranty',
+			description:
+				'All of our mattresses come with a manufacture’s warranty. So you can rest easy knowing that you are taken care of if something is wrong with your mattress.',
+			cta: {
+				title: 'View Mattresses',
+				link: '/inventory?filter=mattresses'
+			}
+		}
+	];
+
 </script>
 
 <SvelteSeo
@@ -125,4 +157,5 @@
 	<Feature data={featureData} />
 	<Stats data={statsData} />
 	<CategoryPreview data={categoryPreviews} />
+	<Highlights data={highlightData} />
 </div>
