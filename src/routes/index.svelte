@@ -26,6 +26,8 @@
 	import type { categoryPreview } from '$lib/components/categoryPreview';
 	import Feature from '$lib/components/feature.svelte'
 	import type { feature } from '$lib/components/feature'
+	import Stats from '$lib/components/stats.svelte'
+	import type { stats } from '$lib/components/stats'
     export let data
     console.log(data)
 
@@ -90,6 +92,16 @@
 		}
 	};
 
+	let statsData: stats = {
+		title: 'Local Experts, Not Robots',
+		description: 'Talk to one of our knowledgeable sleep advisors today!',
+		stats: [
+			{ title: '10', description: 'Years Manufacturing Experience' },
+			{ title: '100%', description: 'Satisfaction' },
+			{ title: '1', description: 'Goal' }
+		]
+	};
+
 </script>
 
 <SvelteSeo
@@ -111,5 +123,6 @@
 <div class="min-h-screen">
 	<Hero data={heroData} />
 	<Feature data={featureData} />
+	<Stats data={statsData} />
 	<CategoryPreview data={categoryPreviews} />
 </div>
