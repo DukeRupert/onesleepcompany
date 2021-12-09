@@ -16,6 +16,7 @@
 </script>
 
 <script lang="ts">
+	import { page } from '$app/stores'
 	import { siteData } from "$lib/store";
 	import { urlFor } from "$lib/image-url";
 	import SvelteSeo from "svelte-seo";
