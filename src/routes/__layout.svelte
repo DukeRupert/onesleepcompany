@@ -19,13 +19,14 @@
 	import Navbar from '$lib/components/navbar.svelte';
 	import Footer from '$lib/components/footer.svelte';
 	import Banner from '$lib/components/banner.svelte';
-	import { siteData } from '$lib/store'
+	import { siteData } from '$lib/store';
 
 	export let data;
-	if(data) {
-		siteData.set(data)
+	if (data) {
+		siteData.set(data);
+	} else {
+		console.log('Error: Failed to load site data.');
 	}
-	console.log(JSON.stringify($siteData))
 </script>
 
 <div class="parent">

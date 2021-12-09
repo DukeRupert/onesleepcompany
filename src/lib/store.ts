@@ -7,6 +7,7 @@ export const siteData = writable({
 		asset: {}
 	},
 	siteColor: '',
+	email: '',
 	warranty: [],
 	returnPolicy: []
 });

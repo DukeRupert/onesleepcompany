@@ -1,9 +1,54 @@
-<script lang="ts">
-	import { locations } from '$lib/store';
+<script lang="ts" context="module">
+	export async function load({ fetch, page }) {
+		const { path } = page;
+		const res = await fetch(`/api${path}.json`);
 
-	let email = 'info@onesleepcompany.com';
+		if (res.ok) {
+			const { data } = await res.json();
+			return { props: { data } };
+		}
+
+		return {
+			status: res.status,
+			error: new Error()
+		};
+	}
 </script>
 
+<script lang="ts">
+	import { locations } from '$lib/store';
+	import { urlFor } from '$lib/image-url';
+	import SvelteSeo from 'svelte-seo';
+	import type { page as pageData } from 'src/global';
+	import { siteData } from '$lib/store';
+	import { page } from '$app/stores';
+
+	export let data: pageData;
+
+	// SEO
+	const pageUrl = `https://${$page.host}${$page.path}`;
+
+	let { email } = $siteData;
+</script>
+
+<SvelteSeo
+	title={data.title}
+	description={data.description}
+	openGraph={{
+		title: data.title,
+		description: data.description,
+		url: pageUrl,
+		type: 'website',
+		images: [
+			{
+				url: urlFor(data.mainImage.asset).width(1200).height(627).format('webp').url(),
+				width: '1200',
+				height: '627',
+				alt: data.mainImage.alt
+			}
+		]
+	}}
+/>
 <!-- Header -->
 <div class="bg-white">
 	<div class="py-24 lg:py-32">
