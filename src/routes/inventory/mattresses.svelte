@@ -100,19 +100,22 @@
 	const handleSort = (e) => {
 		// copy, sort and re-assign product array to activate flip animation
 		let sorted = mattresses;
+		console.log(`Starting sort: ${JSON.stringify(sorted)}`)
 		switch (e.target.id) {
 			case 'Price: Low to High':
-				sorted.sort((a, b) => (a.price > b.price ? 1 : -1));
+				console.log(`Target: ${e.target.id}`)
+				sorted.sort((a, b) => (a.mattress.price > b.mattress.price ? 1 : -1));
 				break;
 			case 'Price: High to Low':
-				sorted.sort((a, b) => (a.price < b.price ? 1 : -1));
+				console.log(`Target: ${e.target.id}`)
+				sorted.sort((a, b) => (a.mattress.price < b.mattress.price ? 1 : -1));
 				break;
 			default:
 				console.log('No match found');
 		}
-
+		console.log(`Sorted array : ${JSON.stringify(sorted)}`)
 		mattresses = [...sorted];
-
+		console.log(`Assigned to mattresses : ${JSON.stringify(mattresses)}`)
 		// set activeSort for menu styling
 		activeSort = e.target.id;
 		// close menu
