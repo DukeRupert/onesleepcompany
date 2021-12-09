@@ -24,6 +24,8 @@
 	import type {hero} from '$lib/components/hero'
 	import CategoryPreview from '$lib/components/categoryPreview.svelte';
 	import type { categoryPreview } from '$lib/components/categoryPreview';
+	import Feature from '$lib/components/feature.svelte'
+	import type { feature } from '$lib/components/feature'
     export let data
     console.log(data)
 
@@ -74,6 +76,20 @@
 		}
 	];
 
+	let featureData: feature = {
+		title: 'Made in the USA',
+		description:
+			'Our mattresses are made right here in the USA. The One Sleep Company stores are located in the beautiful Pacific Northwest. Make an appointment today to visit one of our showrooms to view our selection of mattresses. We offer everything from traditional spring mattresses to pillow-tops in sizes to fit your needs. Whether you’re looking for a twin, full, queen or king, we’ve got you covered.',
+		cta: {
+			title: 'Contact Us',
+			link: '/contact-us'
+		},
+		image: {
+			url: '/american-made-small.jpg',
+			alt: 'A mattress on a wooden frame with an American flag on the wall over it.'
+		}
+	};
+
 </script>
 
 <SvelteSeo
@@ -94,5 +110,6 @@
 />
 <div class="min-h-screen">
 	<Hero data={heroData} />
+	<Feature data={featureData} />
 	<CategoryPreview data={categoryPreviews} />
 </div>
