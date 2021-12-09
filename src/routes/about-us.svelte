@@ -1,9 +1,53 @@
+<script lang="ts" context="module">
+	export async function load({ fetch, page }) {
+		const { path } = page;
+		const res = await fetch(`/api${path}.json`);
+
+		if (res.ok) {
+			const { data } = await res.json();
+			return { props: { data } };
+		}
+
+		return {
+			status: res.status,
+			error: new Error()
+		};
+	}
+</script>
+
 <script lang="ts">
+	import SvelteSeo from 'svelte-seo';
 	import { urlFor } from '$lib/image-url';
 	import { siteData } from '$lib/store';
+	import { page } from '$app/stores';
+	import type { page as pageData } from 'src/global';
+
+	export let data: pageData;
+
+	// SEO
+	const pageUrl = `https://${$page.host}${$page.path}`;
+
 	const { title, logo } = $siteData;
 </script>
 
+<SvelteSeo
+	title={data.title}
+	description={data.description}
+	openGraph={{
+		title: data.title,
+		description: data.description,
+		url: pageUrl,
+		type: 'website',
+		images: [
+			{
+				url: urlFor(data.mainImage.asset).width(1200).height(627).format('webp').url(),
+				width: '1200',
+				height: '627',
+				alt: data.mainImage.alt
+			}
+		]
+	}}
+/>
 <div class="py-16 bg-white overflow-hidden">
 	<div class="max-w-8xl mx-auto px-4 space-y-8 sm:px-6 lg:px-8">
 		<div class="text-base max-w-prose mx-auto lg:max-w-none">
