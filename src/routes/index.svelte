@@ -1,4 +1,3 @@
-
 <script context="module">
 	export async function load({ fetch }) {
 		const res = await fetch(`/api/home.json`);
@@ -16,21 +15,23 @@
 </script>
 
 <script lang="ts">
-	import { page } from '$app/stores'
-	import { siteData } from "$lib/store";
-	import { urlFor } from "$lib/image-url";
-	import SvelteSeo from "svelte-seo";
-	import Hero from '$lib/components/hero.svelte'
-	import type {hero} from '$lib/components/hero'
+	import { page } from '$app/stores';
+	import { siteData } from '$lib/store';
+	import { urlFor } from '$lib/image-url';
+	import SvelteSeo from 'svelte-seo';
+	import Hero from '$lib/components/hero.svelte';
+	import type { hero } from '$lib/components/hero';
 	import CategoryPreview from '$lib/components/categoryPreview.svelte';
 	import type { categoryPreview } from '$lib/components/categoryPreview';
-	import Feature from '$lib/components/feature.svelte'
-	import type { feature } from '$lib/components/feature'
-	import Stats from '$lib/components/stats.svelte'
-	import type { stats } from '$lib/components/stats'
-	import Highlights from '$lib/components/highlights.svelte'
-	import type { highlight } from '$lib/components/highlights'
-    export let data
+	import Feature from '$lib/components/feature.svelte';
+	import type { feature } from '$lib/components/feature';
+	import Stats from '$lib/components/stats.svelte';
+	import type { stats } from '$lib/components/stats';
+	import Highlights from '$lib/components/highlights.svelte';
+	import type { highlight } from '$lib/components/highlights';
+	import type { page as pageData } from 'src/global';
+
+	export let data: pageData;
 
 	// SEO
 	const pageUrl = `https://${$page.host}${$page.path}`;
@@ -40,8 +41,7 @@
 			first: 'Wholesale pricing',
 			second: 'Factory direct'
 		},
-		description:
-			data.excerpt,
+		description: data.description,
 		image: {
 			url: urlFor(data.mainImage.asset).format('webp').width(800).url(),
 			alt: data.mainImage.alt
@@ -132,13 +132,14 @@
 			}
 		}
 	];
-
 </script>
 
 <SvelteSeo
+	title={data.title}
+	description={data.description}
 	openGraph={{
-		title: $siteData.title + ' - ' + data.title,
-		description: data.excerpt,
+		title: data.title,
+		description: data.description,
 		url: pageUrl,
 		type: 'website',
 		images: [
