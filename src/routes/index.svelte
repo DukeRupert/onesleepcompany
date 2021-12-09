@@ -22,6 +22,8 @@
 	import SvelteSeo from "svelte-seo";
 	import Hero from '$lib/components/hero.svelte'
 	import type {hero} from '$lib/components/hero'
+	import CategoryPreview from '$lib/components/categoryPreview.svelte';
+	import type { categoryPreview } from '$lib/components/categoryPreview';
     export let data
     console.log(data)
 
@@ -45,6 +47,33 @@
 		}
 	};
 
+	let categoryPreviews: categoryPreview[] = [
+		{
+			title: 'Platform Frames',
+			link: '/locations',
+			image: {
+				url: '/platformFrame.jpg',
+				alt: 'fix me'
+			}
+		},
+		{
+			title: 'Pillows & Sheets',
+			link: '/locations',
+			image: {
+				url: '/pillow.jpg',
+				alt: 'fix me'
+			}
+		},
+		{
+			title: 'Adjustable Frames',
+			link: '/locations',
+			image: {
+				url: 'adjustableFrame.jpg',
+				alt: 'fix me'
+			}
+		}
+	];
+
 </script>
 
 <SvelteSeo
@@ -65,4 +94,5 @@
 />
 <div class="min-h-screen">
 	<Hero data={heroData} />
+	<CategoryPreview data={categoryPreviews} />
 </div>
