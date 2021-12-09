@@ -17,13 +17,13 @@
 
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { siteData } from '$lib/store';
 	import { urlFor } from '$lib/image-url';
 	import { slide } from 'svelte/transition';
 	import { quartOut } from 'svelte/easing';
 	import { TIMING } from '$lib/constants';
-	import SvelteSeo from 'svelte-seo'
-	import ContentBlocks from '@arzidava/svelte-portable-text'
+	import type { page as pageData } from 'src/global';
+	import SvelteSeo from 'svelte-seo';
+	import ContentBlocks from '@arzidava/svelte-portable-text';
 	import ProductCard from '$lib/components/productCard.svelte';
 	import SimpleCTA from '$lib/components/simpleCTA.svelte';
 	import Link from '$lib/components/link.svelte';
@@ -35,30 +35,30 @@
 					component: ProductCard,
 					props: {
 						title: node.mattress.title,
-				slug: node.mattress.slug.current,
-				image: {
-					url: urlFor(node.mattress.images[0].asset).width(450).format('webp').url(),
-					alt: node.mattress.title
-				},
-				price: node.mattress.price,
-				features: node.mattress.features
+						slug: node.mattress.slug.current,
+						image: {
+							url: urlFor(node.mattress.images[0].asset).width(450).format('webp').url(),
+							alt: node.mattress.title
+						},
+						price: node.mattress.price,
+						features: node.mattress.features
 					}
-				}
+				};
 			},
 			mattress: (node) => {
 				return {
 					component: ProductCard,
-				props: {
-					title: node.title,
-					slug: node.slug.current,
-					image: {
-						url: urlFor(node.images[0].asset).width(450).format('webp').url(),
-						alt: node.title
-					},
-					price: node.price,
-					features: node.features
-				}
-				}
+					props: {
+						title: node.title,
+						slug: node.slug.current,
+						image: {
+							url: urlFor(node.images[0].asset).width(450).format('webp').url(),
+							alt: node.title
+						},
+						price: node.price,
+						features: node.features
+					}
+				};
 			}
 		},
 		marks: {
@@ -68,11 +68,11 @@
 					props: props.mark
 				};
 			}
-		}	
-	}
-	
+		}
+	};
 
-	export let data;
+	export let data: pageData;
+
 	const ctaData = {
 		line1: 'Ready to sleep well?',
 		line2: 'Make an appointment today.',
@@ -119,9 +119,11 @@
 </script>
 
 <SvelteSeo
+	title={data.title}
+	description={data.description}
 	openGraph={{
-		title: $siteData.title + ' - ' + data.title,
-		description: data.excerpt,
+		title: data.title,
+		description: data.description,
 		url: pageUrl,
 		type: 'website',
 		images: [

@@ -18,8 +18,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import SvelteSeo from 'svelte-seo';
-	import { siteData } from '$lib/store';
 	import { urlFor } from '$lib/image-url';
+	import type { page as pageData } from 'src/global';
 	import ContentBlocks from '@arzidava/svelte-portable-text';
 	import ProductCard from '$lib/components/productCard.svelte';
 	import Link from '$lib/components/link.svelte';
@@ -65,10 +65,11 @@
 					props: props.mark
 				};
 			}
-		}	
+		}
 	};
 
-	export let data;
+	export let data: pageData;
+
 	const ctaData = {
 		line1: 'Ready to sleep well?',
 		line2: 'Make an appointment today.',
@@ -83,9 +84,11 @@
 </script>
 
 <SvelteSeo
+	title={data.title}
+	description={data.description}
 	openGraph={{
-		title: $siteData.title + ' - ' + data.title,
-		description: data.excerpt,
+		title: data.title,
+		description: data.description,
 		url: pageUrl,
 		type: 'website',
 		images: [
