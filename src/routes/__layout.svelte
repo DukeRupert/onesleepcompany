@@ -1,8 +1,31 @@
+<script context="module">
+	export async function load({ fetch }) {
+		const res = await fetch(`/api/siteSettings.json`);
+
+		if (res.ok) {
+			const { data } = await res.json();
+			return { props: { data } };
+		}
+
+		return {
+			status: res.status,
+			error: new Error()
+		};
+	}
+</script>
+
 <script lang="ts">
 	import '../app.css';
 	import Navbar from '$lib/components/navbar.svelte';
 	import Footer from '$lib/components/footer.svelte';
 	import Banner from '$lib/components/banner.svelte';
+	import { siteData } from '$lib/store'
+
+	export let data;
+	if(data) {
+		siteData.set(data)
+	}
+	console.log(JSON.stringify($siteData))
 </script>
 
 <div class="parent">

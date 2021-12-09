@@ -1,7 +1,14 @@
 import { writable } from 'svelte/store';
 
 export const siteData = writable({
-	title: 'One Sleep Company'
+	title: 'One Sleep Company',
+	description: '',
+	logo: {
+		asset: {}
+	},
+	siteColor: '',
+	warranty: [],
+	returnPolicy: []
 });
 
 export const locations = writable([

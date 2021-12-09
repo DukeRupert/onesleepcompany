@@ -1,4 +1,9 @@
-<!-- This example requires Tailwind CSS v2.0+ -->
+<script lang="ts">
+	import { siteData } from '$lib/store'
+	import { urlFor } from '$lib/image-url'
+</script>
+
+
 <!--
   This example requires updating your template:
 
@@ -13,8 +18,8 @@
 	>
 		<div class="flex-shrink-0 flex justify-center">
 			<a href="/" class="inline-flex">
-				<span class="sr-only">One Sleep Company</span>
-				<img class="h-12 w-auto" src="logo-osc.svg" alt="One Sleep Company logo" />
+				<span class="sr-only">{$siteData.title}</span>
+				<img class="h-12 w-auto" src={urlFor($siteData.logo.asset).format('webp').width(400).url()} alt="One Sleep Company logo" />
 			</a>
 		</div>
 		<div class="py-16">

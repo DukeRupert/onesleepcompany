@@ -31,7 +31,6 @@
 	import Highlights from '$lib/components/highlights.svelte'
 	import type { highlight } from '$lib/components/highlights'
     export let data
-    console.log(data)
 
 	// SEO
 	const pageUrl = `https://${$page.host}${$page.path}`;
