@@ -1,17 +1,52 @@
-<script lang="ts">
-	import { locations } from '$lib/store';
-	let data = {
-		title: 'Instant Financing',
-		description:
-			'Good sleep is too important to delay. Choose a location below to apply for instant financing!'
-	};
+<script lang="ts" context="module">
+	export async function load({ fetch, page }) {
+		const { path } = page;
+		const res = await fetch(`/api${path}.json`);
+
+		if (res.ok) {
+			const { data } = await res.json();
+			return { props: { data } };
+		}
+
+		return {
+			status: res.status,
+			error: new Error()
+		};
+	}
 </script>
 
-<svelte:head>
-	<title>{data.title}</title>
-	<meta name="description" content={data.description} />
-</svelte:head>
+<script lang="ts">
+	import SvelteSeo from 'svelte-seo';
+	import { urlFor } from '$lib/image-url';
+	import { page } from '$app/stores';
+	import type { page as pageData } from 'src/global';
 
+	export let data: pageData;
+
+	// SEO
+	const pageUrl = `https://${$page.host}${$page.path}`;
+
+	import { locations } from '$lib/store';
+</script>
+
+<SvelteSeo
+	title={data.title}
+	description={data.description}
+	openGraph={{
+		title: data.title,
+		description: data.description,
+		url: pageUrl,
+		type: 'website',
+		images: [
+			{
+				url: urlFor(data.mainImage.asset).width(1200).height(627).format('webp').url(),
+				width: '1200',
+				height: '627',
+				alt: data.mainImage.alt
+			}
+		]
+	}}
+/>
 <!-- Header -->
 <header class="text-center py-16 px-4 sm:px-6 lg:px-8">
 	<h1 class="text-4xl font-extrabold tracking-tight text-gray-900">{data.title}</h1>
