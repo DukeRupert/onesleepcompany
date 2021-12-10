@@ -1,14 +1,52 @@
+<script lang="ts" context="module">
+	export async function load({ fetch, page }) {
+		const { path } = page;
+		const res = await fetch(`/api${path}.json`);
+
+		if (res.ok) {
+			const { data } = await res.json();
+			return { props: { data } };
+		}
+
+		return {
+			status: res.status,
+			error: new Error()
+		};
+	}
+</script>
+
 <script lang="ts">
 	import { locations } from '$lib/store';
 	import Map from '$lib/components/map.svelte';
+	import SvelteSeo from 'svelte-seo';
+	import { urlFor } from '$lib/image-url';
+	import { page } from '$app/stores';
+	import type { page as pageData } from 'src/global';
+
+	export let data: pageData;
+
+	// SEO
+	const pageUrl = `https://${$page.host}${$page.path}`;
 </script>
 
-<!-- <svelte:head>
-	<script
-		defer
-		async
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs_RPFRaRePiDjqBlsEdFIU6SI5fJw9-I"></script>
-</svelte:head> -->
+<SvelteSeo
+	title={data.title}
+	description={data.description}
+	openGraph={{
+		title: data.title,
+		description: data.description,
+		url: pageUrl,
+		type: 'website',
+		images: [
+			{
+				url: urlFor(data.mainImage.asset).width(1200).height(627).format('webp').url(),
+				width: '1200',
+				height: '627',
+				alt: data.mainImage.alt
+			}
+		]
+	}}
+/>
 
 <div class="bg-white pb-16 overflow-hidden">
 	<div class="max-w-8xl mx-auto py-8 px-2 sm:py-16 sm:px-4 lg:px-6">
