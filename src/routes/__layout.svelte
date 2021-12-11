@@ -20,6 +20,7 @@
 	import Footer from '$lib/components/footer.svelte';
 	import Banner from '$lib/components/banner.svelte';
 	import { siteData } from '$lib/store';
+	import { onMount } from 'svelte';
 
 	export let data;
 	if (data) {
@@ -27,6 +28,29 @@
 	} else {
 		console.log('Error: Failed to load site data.');
 	}
+
+	onMount(() => {
+		var chatbox = document.getElementById('fb-customer-chat');
+		chatbox.setAttribute('page_id', '958154947684587');
+		chatbox.setAttribute('attribution', 'biz_inbox');
+
+		window.fbAsyncInit = function () {
+			FB.init({
+				xfbml: true,
+				version: 'v12.0'
+			});
+		};
+
+		(function (d, s, id) {
+			var js,
+				fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+			fjs.parentNode.insertBefore(js, fjs);
+		})(document, 'script', 'facebook-jssdk');
+	});
 </script>
 
 <div class="parent">
@@ -36,6 +60,10 @@
 	</nav>
 	<main class="bg-white">
 		<slot />
+		<!-- Messenger Chat Plugin Code -->
+		<div id="fb-root" />
+		<!-- Your Chat Plugin code -->
+		<div id="fb-customer-chat" class="fb-customerchat" />
 	</main>
 	<footer>
 		<Footer />
