@@ -23,15 +23,55 @@
 	import { siteData } from '$lib/store';
 	import { page } from '$app/stores';
 	import { createForm } from 'felte';
+	import { svelteReporter, ValidationMessage } from '@felte/reporter-svelte';
 
 	export let data: pageData;
 
 	// Form Data
-	const { form } = createForm({
+	const { form, errors } = createForm({
 		validate: (values) => {
 			const errors = {};
-			if (!values.firstName) errors.firstName = 'Must not be empty';
+			if (!values.firstName) {
+				errors.firstName = 'Must not be empty';
+			}
+			if (!values.lastName) {
+				errors.lastName = 'Must not be empty';
+			}
+			if (!values.email || !/^[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/.test(values.email)) {
+				errors.email = 'Must be a valid email';
+			}
+			if (
+				values.tel !== '' &&
+				!/^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/gm.test(
+					values.tel
+				)
+			) {
+				errors.tel = 'Must be a valid phone number';
+			}
+			if (!values.subject) {
+				errors.subject = 'Must not be empty';
+			}
+			if (values.subject && values.subject.length > 80) {
+				errors.subject = 'Too long. Subject may not exceed 80 characters';
+			}
+			if (values.subject && /<.*?script.*\/?>/gi.test(values.subject)) {
+				errors.subject = '<script> tags are not allowed';
+			}
+			if (!values.body) {
+				errors.body = 'Must not be empty';
+			}
+			// Message cannot exceed 500 characters
+			if (values.body && values.body.length > 500) {
+				errors.body = 'Too many characters.';
+			}
+			// Sanitize body of script tags
+			if (values.body && /<.*?script.*\/?>/gi.test(values.body)) {
+				errors.body = '<script> tags are not allowed';
+			}
+
+			return errors;
 		},
+		extend: svelteReporter,
 		onSubmit: (values) => {
 			console.log(JSON.stringify(values));
 		}
@@ -212,9 +252,9 @@
 						{#each $locations as { title, phone }}
 							<dt><span class="sr-only">{title} store phone number</span></dt>
 							<a href="tel:+1{phone.areaCode}{phone.three}{phone.four}"
-								><dd class="flex text-base text-indigo-50">
+								><dd class="flex text-base text-matisse-50">
 									<svg
-										class="flex-shrink-0 w-6 h-6 text-indigo-200"
+										class="flex-shrink-0 w-6 h-6 text-matisse-200"
 										width="24"
 										height="24"
 										viewBox="0 0 24 24"
@@ -230,16 +270,16 @@
 										/></svg
 									>
 									<span class="ml-3">({phone.areaCode}) {phone.three}-{phone.four}</span>
-									<p class="inline-block text-base text-indigo-50 max-w-3xl ml-4">
+									<p class="inline-block text-base text-matisse-50 max-w-3xl ml-4">
 										- &nbsp; {title}
 									</p>
 								</dd></a
 							>
 							<dt><span class="sr-only">Email</span></dt>
 						{/each}
-						<dd class="flex text-base text-indigo-50">
+						<dd class="flex text-base text-matisse-50">
 							<svg
-								class="flex-shrink-0 w-6 h-6 text-indigo-200"
+								class="flex-shrink-0 w-6 h-6 text-matisse-200"
 								width="24"
 								height="24"
 								viewBox="0 0 24 24"
@@ -274,6 +314,9 @@
 									autocomplete="given-name"
 									class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-highlight focus:border-highlight border-gray-300 rounded-md"
 								/>
+								<ValidationMessage for="firstName" let:messages>
+									{messages || ''}
+								</ValidationMessage>
 							</div>
 						</div>
 						<div>
@@ -288,6 +331,9 @@
 									autocomplete="family-name"
 									class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-highlight focus:border-highlight border-gray-300 rounded-md"
 								/>
+								<ValidationMessage for="lastName" let:messages>
+									{messages || ''}
+								</ValidationMessage>
 							</div>
 						</div>
 						<div>
@@ -300,6 +346,9 @@
 									autocomplete="email"
 									class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-highlight focus:border-highlight border-gray-300 rounded-md"
 								/>
+								<ValidationMessage for="email" let:messages>
+									{messages || ''}
+								</ValidationMessage>
 							</div>
 						</div>
 						<div>
@@ -316,7 +365,23 @@
 									class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-highlight focus:border-highlight border-gray-300 rounded-md"
 									aria-describedby="tel-optional"
 								/>
+								<ValidationMessage for="tel" let:messages>
+									{messages || ''}
+								</ValidationMessage>
 							</div>
+						</div>
+						<div class="sm:col-span-2">
+							<label for="location" class="block text-sm font-medium text-gray-700">Location</label>
+							<select
+								id="location"
+								name="location"
+								class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-matisse-500 focus:border-matisse-500 sm:text-sm rounded-md"
+							>
+								<option selected>Tacoma</option>
+								<option>Sumner</option>
+								<option>Kent</option>
+								<option>Clackamas</option>
+							</select>
 						</div>
 						<div class="sm:col-span-2">
 							<label for="subject" class="block text-sm font-medium text-gray-900">Subject</label>
@@ -327,6 +392,9 @@
 									name="subject"
 									class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-highlight focus:border-highlight border-gray-300 rounded-md"
 								/>
+								<ValidationMessage for="subject" let:messages>
+									{messages || ''}
+								</ValidationMessage>
 							</div>
 						</div>
 						<div class="sm:col-span-2">
@@ -336,12 +404,15 @@
 							</div>
 							<div class="mt-1">
 								<textarea
-									id="message"
-									name="message"
+									id="body"
+									name="body"
 									rows="4"
 									class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-highlight focus:border-highlight border border-gray-300 rounded-md"
 									aria-describedby="message-max"
 								/>
+								<ValidationMessage for="body" let:messages>
+									{messages || ''}
+								</ValidationMessage>
 							</div>
 						</div>
 						<div class="sm:col-span-2 sm:flex sm:justify-end">

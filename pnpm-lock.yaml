@@ -3,6 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@arzidava/svelte-portable-text': ^0.1.0
   '@emagining/sveltekit-pote': ^0.0.5
+  '@felte/reporter-svelte': ^0.3.18
   '@movingbrands/svelte-portable-text': ^0.0.11
   '@sanity/block-content-to-hyperscript': ^3.0.0
   '@sanity/client': ^2.23.0
@@ -39,6 +40,7 @@ dependencies:
 
 devDependencies:
   '@emagining/sveltekit-pote': 0.0.5
+  '@felte/reporter-svelte': 0.3.18_svelte@3.44.2
   '@movingbrands/svelte-portable-text': 0.0.11_svelte@3.44.2
   '@sanity/block-content-to-hyperscript': 3.0.0
   '@sanity/client': 2.23.0
@@ -124,13 +126,21 @@ packages:
 
   /@felte/common/0.5.3:
     resolution: {integrity: sha512-yVi7mhFdKeuU1d/yodCnqgP5pJXVz+SiARc5XrDRgxlsreUvp/rrdvhRmL94y0p+wPu2Dmr0FCc5aYiDgh/IsQ==}
-    dev: false
 
   /@felte/core/0.2.6:
     resolution: {integrity: sha512-d1xV92OtKdt9Vf2jQ4+FZX4RKhikYQjGXIbLQInmhgnBzOMmxKlh7NMmOGyOdIXyIKlzoLIWkjRyw3ubdP6opw==}
     dependencies:
       '@felte/common': 0.5.3
     dev: false
+
+  /@felte/reporter-svelte/0.3.18_svelte@3.44.2:
+    resolution: {integrity: sha512-ljt4zI0tw/3JeyeYUMESfd+CVK76ELsbV/NTzZP37oR42u4xPMh93QO9pO2511Fe5DZlzVtrGWxmioWEyNfkWQ==}
+    peerDependencies:
+      svelte: ^3.31.0
+    dependencies:
+      '@felte/common': 0.5.3
+      svelte: 3.44.2
+    dev: true
 
   /@humanwhocodes/config-array/0.5.0:
     resolution: {integrity: sha512-FagtKFz74XrTl7y6HCzQpwDfXP0yhxe9lHLD1UZxjvZIcbyRz8zTFF/yYNfSfzU414eDwZ1SrO0Qvtyf+wFMQg==}

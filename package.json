@@ -13,6 +13,7 @@
 	},
 	"devDependencies": {
 		"@emagining/sveltekit-pote": "^0.0.5",
+		"@felte/reporter-svelte": "^0.3.18",
 		"@movingbrands/svelte-portable-text": "^0.0.11",
 		"@sanity/block-content-to-hyperscript": "^3.0.0",
 		"@sanity/client": "^2.23.0",
