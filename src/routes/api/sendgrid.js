@@ -3,10 +3,16 @@ import sendgrid from '@sendgrid/mail';
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 
 export async function post(req) {
+	if (req.body.password !== '') {
+		console.log('Nice try bot');
+		return {
+			status: 200
+		};
+	}
 	try {
 		// console.log("REQ.BODY", req.body);
 		await sendgrid.send({
-			to: 'logan@firefly.llc', // Your email where you'll receive emails
+			to: 'chad@onesleepcompany.com ', // Your email where you'll receive emails
 			from: 'logan@firefly.llc', // your website email address here
 			subject: `${req.body.location} - ${req.body.subject}`,
 			html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

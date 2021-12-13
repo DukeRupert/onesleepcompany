@@ -87,7 +87,6 @@
 			if (error) {
 				console.log(error);
 			} else {
-				console.log('Success, email sent');
 				goto('/success');
 			}
 		}
@@ -350,6 +349,17 @@
 								<ValidationMessage for="lastName" let:messages>
 									{messages || ''}
 								</ValidationMessage>
+							</div>
+						</div>
+						<div class="hidden">
+							<label for="password" class="block text-sm font-medium text-gray-900">Password</label>
+							<div class="mt-1">
+								<input
+									type="text"
+									id="password"
+									name="password"
+									class="block py-3 px-4 w-full shadow-sm text-gray-900 focus:ring-highlight focus:border-highlight border-gray-300 rounded-md"
+								/>
 							</div>
 						</div>
 						<div>
