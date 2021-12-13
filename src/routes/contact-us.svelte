@@ -24,6 +24,7 @@
 	import { page } from '$app/stores';
 	import { createForm } from 'felte';
 	import { svelteReporter, ValidationMessage } from '@felte/reporter-svelte';
+	import { goto } from '$app/navigation';
 
 	export let data: pageData;
 
@@ -72,8 +73,23 @@
 			return errors;
 		},
 		extend: svelteReporter,
-		onSubmit: (values) => {
-			console.log(JSON.stringify(values));
+		onSubmit: async (values) => {
+			const response = await fetch('api/sendgrid', {
+				method: 'POST',
+
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(values)
+			});
+
+			let error = response.errors;
+			if (error) {
+				console.log(error);
+			} else {
+				console.log('Success, email sent');
+				goto('/success');
+			}
 		}
 	});
 
