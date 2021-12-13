@@ -30,6 +30,8 @@
 	import Highlights from '$lib/components/highlights.svelte';
 	import type { highlight } from '$lib/components/highlights';
 	import type { page as pageData } from 'src/global';
+	import FacebookPixel from '$lib/FacebookPixel.svelte';
+	import { onMount } from 'svelte';
 
 	export let data: pageData;
 
@@ -132,6 +134,14 @@
 			}
 		}
 	];
+
+	let fb;
+	let id = 900909000387495;
+
+	onMount(() => {
+		fb.enable();
+		fb.track();
+	});
 </script>
 
 <SvelteSeo
@@ -152,6 +162,7 @@
 		]
 	}}
 />
+<FacebookPixel bind:this={fb} {id} />
 <div class="min-h-screen">
 	<Hero data={heroData} />
 	<Feature data={featureData} />

@@ -22,13 +22,25 @@
 	import type { page as pageData } from 'src/global';
 	import { siteData } from '$lib/store';
 	import { page } from '$app/stores';
+	import { createForm } from 'felte';
 
 	export let data: pageData;
+
+	// Form Data
+	const { form } = createForm({
+		validate: (values) => {
+			const errors = {};
+			if (!values.firstName) errors.firstName = 'Must not be empty';
+		},
+		onSubmit: (values) => {
+			console.log(JSON.stringify(values));
+		}
+	});
 
 	// SEO
 	const pageUrl = `https://${$page.host}${$page.path}`;
 
-	let { email } = $siteData;
+	let { email: oscEmail } = $siteData;
 </script>
 
 <SvelteSeo
@@ -241,29 +253,15 @@
 								<rect x="3" y="5" width="18" height="14" rx="2" />
 								<polyline points="3 7 12 13 21 7" /></svg
 							>
-							<span class="ml-3">{email}</span>
+							<span class="ml-3">{oscEmail}</span>
 						</dd>
 					</dl>
 				</div>
 				<!-- Contact form -->
 				<div class="py-10 px-6 sm:px-10 lg:col-span-2 xl:p-12">
 					<h3 class="text-lg font-medium text-gray-900">Send us a message</h3>
-					<form
-						name="contact"
-						action="/success"
-						method="POST"
-						data-netlify="true"
-						netlify-honeypot="bot-field"
-						class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8"
-					>
-						<!-- Honeypot   -->
-						<input type="hidden" name="form-name" value="contact" />
-						<div hidden aria-hidden="true">
-							<label>
-								Don’t fill this out if you're human:
-								<input name="bot-field" />
-							</label>
-						</div>
+					<!-- svelte-ignore component-name-lowercase -->
+					<form use:form class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
 						<div>
 							<label for="first-name" class="block text-sm font-medium text-gray-900"
 								>First name</label
@@ -271,8 +269,8 @@
 							<div class="mt-1">
 								<input
 									type="text"
-									name="first-name"
 									id="first-name"
+									name="firstName"
 									autocomplete="given-name"
 									class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-highlight focus:border-highlight border-gray-300 rounded-md"
 								/>
@@ -285,8 +283,8 @@
 							<div class="mt-1">
 								<input
 									type="text"
-									name="last-name"
 									id="last-name"
+									name="lastName"
 									autocomplete="family-name"
 									class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-highlight focus:border-highlight border-gray-300 rounded-md"
 								/>
@@ -297,8 +295,8 @@
 							<div class="mt-1">
 								<input
 									id="email"
-									name="email"
 									type="email"
+									name="email"
 									autocomplete="email"
 									class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-highlight focus:border-highlight border-gray-300 rounded-md"
 								/>
@@ -306,17 +304,17 @@
 						</div>
 						<div>
 							<div class="flex justify-between">
-								<label for="phone" class="block text-sm font-medium text-gray-900">Phone</label>
-								<span id="phone-optional" class="text-sm text-gray-500">Optional</span>
+								<label for="tel" class="block text-sm font-medium text-gray-900">Phone</label>
+								<span id="tel-optional" class="text-sm text-gray-500">Optional</span>
 							</div>
 							<div class="mt-1">
 								<input
 									type="text"
-									name="phone"
-									id="phone"
+									id="tel"
+									name="tel"
 									autocomplete="tel"
 									class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-highlight focus:border-highlight border-gray-300 rounded-md"
-									aria-describedby="phone-optional"
+									aria-describedby="tel-optional"
 								/>
 							</div>
 						</div>
@@ -325,8 +323,8 @@
 							<div class="mt-1">
 								<input
 									type="text"
-									name="subject"
 									id="subject"
+									name="subject"
 									class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-highlight focus:border-highlight border-gray-300 rounded-md"
 								/>
 							</div>
@@ -349,6 +347,7 @@
 						<div class="sm:col-span-2 sm:flex sm:justify-end">
 							<button
 								type="submit"
+								value="Submit Form"
 								class="mt-2 w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-highlight sm:w-auto"
 							>
 								Submit
