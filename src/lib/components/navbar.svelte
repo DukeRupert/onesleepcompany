@@ -3,12 +3,12 @@
 	import { quartOut } from 'svelte/easing';
 	import { page } from '$app/stores';
 	import { TIMING } from '$lib/constants';
-	import { urlFor } from '$lib/image-url'
-	import { siteData } from '$lib/store'
+	import { urlFor } from '$lib/image-url';
+	import { siteData } from '$lib/store';
 
 	let isNavOpen = false;
 	let timing = TIMING;
-	let { title, logo } = $siteData
+	let { title, logo } = $siteData;
 
 	const toggleMenu = () => {
 		isNavOpen = !isNavOpen;
@@ -84,7 +84,7 @@
 				<a
 					sveltekit:prefetch
 					href="/inventory/mattresses"
-					class="{$page.path == '/inventory/mattresses'
+					class="{$page.url.pathname == '/inventory/mattresses'
 						? 'current'
 						: 'default'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
 				>
@@ -93,7 +93,7 @@
 				<a
 					sveltekit:prefetch
 					href="/inventory/adjustable-bases"
-					class="{$page.path == '/inventory/adjustable-bases'
+					class="{$page.url.pathname == '/inventory/adjustable-bases'
 						? 'current'
 						: 'default'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
 				>
@@ -102,7 +102,7 @@
 				<a
 					sveltekit:prefetch
 					href="/locations"
-					class="{$page.path == '/locations'
+					class="{$page.url.pathname == '/locations'
 						? 'current'
 						: 'default'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
 				>
@@ -111,7 +111,7 @@
 				<a
 					sveltekit:prefetch
 					href="/about-us"
-					class="{$page.path == '/about-us'
+					class="{$page.url.pathname == '/about-us'
 						? 'current'
 						: 'default'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
 				>
@@ -155,14 +155,14 @@
 			<a
 				sveltekit:prefetch
 				href="/inventory/mattresses"
-				class="{$page.path == '/inventory/mattresses'
+				class="{$page.url.pathname == '/inventory/mattresses'
 					? 'mobile-current'
 					: 'mobile-default'} block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Mattresses</a
 			>
 			<a
 				sveltekit:prefetch
 				href="/inventory/adjustable-bases"
-				class="{$page.path == '/inventory/adjustable-bases'
+				class="{$page.url.pathname == '/inventory/adjustable-bases'
 					? 'mobile-current'
 					: 'mobile-default'} block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
 				>Adjustable Bases</a
@@ -170,14 +170,14 @@
 			<a
 				sveltekit:prefetch
 				href="/locations"
-				class="{$page.path == '/locations'
+				class="{$page.url.pathname == '/locations'
 					? 'mobile-current'
 					: 'mobile-default'} block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Locations</a
 			>
 			<a
 				sveltekit:prefetch
 				href="/about-us"
-				class="{$page.path == '/about-us'
+				class="{$page.url.pathname == '/about-us'
 					? 'mobile-current'
 					: 'mobile-default'} block pl-3 pr-4 py-2 border-l-4 text-base font-medium">About Us</a
 			>

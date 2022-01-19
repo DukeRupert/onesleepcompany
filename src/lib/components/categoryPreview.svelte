@@ -27,7 +27,7 @@
 				<div class="p-6 flex items-end">
 					<div>
 						<h3 class="font-semibold text-white">
-							<a href={data[0].link}>
+							<a href={data[0].link} rel="external">
 								<span class="absolute inset-0" />
 								{data[0].title}
 							</a>
@@ -51,7 +51,7 @@
 				<div class="p-6 flex items-end sm:absolute sm:inset-0">
 					<div>
 						<h3 class="font-semibold text-white">
-							<a href={data[1].link}>
+							<a href={data[1].link} rel="external">
 								<span class="absolute inset-0" />
 								{data[1].title}
 							</a>
@@ -75,7 +75,7 @@
 				<div class="p-6 flex items-end sm:absolute sm:inset-0">
 					<div>
 						<h3 class="font-semibold text-white">
-							<a href={data[2].link}>
+							<a href={data[2].link} rel="external">
 								<span class="absolute inset-0" />
 								{data[2].title}
 							</a>

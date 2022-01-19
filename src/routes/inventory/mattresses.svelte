@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
-	export async function load({ fetch, page }) {
-		const { path } = page;
+	export async function load({ fetch, url }) {
+		const path = url.pathname;
 		const res = await fetch(`/api${path}.json`);
 
 		if (res.ok) {
@@ -83,7 +83,7 @@
 	};
 
 	// SEO
-	const pageUrl = `https://${$page.host}${$page.path}`;
+	const pageUrl = `https://${$page.host}${$page.url.pathname}`;
 
 	// Sorting
 	let isSortOpen = false;

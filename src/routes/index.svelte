@@ -36,7 +36,7 @@
 	export let data: pageData;
 
 	// SEO
-	const pageUrl = `https://${$page.host}${$page.path}`;
+	const pageUrl = `https://${$page.host}${$page.url.pathname}`;
 
 	let heroData: hero = {
 		title: {
