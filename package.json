@@ -12,6 +12,7 @@
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
+		"@beyonk/svelte-google-analytics": "^2.2.0",
 		"@emagining/sveltekit-pote": "^0.0.5",
 		"@felte/reporter-svelte": "^0.3.20",
 		"@movingbrands/svelte-portable-text": "^0.0.11",

@@ -21,6 +21,7 @@
 	import Banner from '$lib/components/banner.svelte';
 	import { siteData } from '$lib/store';
 	import { onMount } from 'svelte';
+	import { GoogleAnalytics } from '@beyonk/svelte-google-analytics';
 
 	export let data;
 	if (data) {
@@ -53,6 +54,7 @@
 	});
 </script>
 
+<GoogleAnalytics properties={['G-VYG1240Z8J']} />
 <div class="parent">
 	<nav class="bg-white shadow">
 		<Banner />
